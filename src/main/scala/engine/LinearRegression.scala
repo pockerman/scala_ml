@@ -2,11 +2,16 @@ package engine
 
 import breeze.linalg._
 
-/// Linear regression class
+/**
+ *
+ * LinearRegression class. Implements linear regression on the
+ *
+ */
+
 class LinearRegression {
 
 
-  
+
   def fit(x: DenseMatrix[Double], y: DenseVector[Double]):Unit={
 
   }
