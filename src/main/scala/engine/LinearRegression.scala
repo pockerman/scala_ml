@@ -5,7 +5,6 @@ import breeze.linalg._
 /**
  *
  * LinearRegression class. Implements linear regression on the
- *
  */
 
 class LinearRegression {
