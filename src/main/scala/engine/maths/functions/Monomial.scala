@@ -1,4 +1,4 @@
-package engine.maths
+package engine.maths.functions
 
 /**
  * Models a scalar Monomial

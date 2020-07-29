@@ -1,6 +1,6 @@
-package engine.maths
+package engine.maths.functions
+
 import breeze.linalg.DenseVector
-import engine.maths.Monomial
 
 
 /**
@@ -9,7 +9,9 @@ import engine.maths.Monomial
  */
 class Polynomial {
 
+
   var monomials: Array[Monomial]
+
   def value(x: DenseVector[Double]):Double= {
 
     var result: Double = 0.0
