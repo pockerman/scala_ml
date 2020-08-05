@@ -1,22 +1,24 @@
 package engine.models
 
+import breeze.linalg.{DenseMatrix, DenseVector}
+
 /**
  *
  * Configuration class for Hidden Markov Model
+ *
  * @param numObs
  * @param numStates
  * @param numSymbols
  * @param maxItrs
  * @param eps
  */
-class HiddenMarkovModelConfig(val numObs: Int, val numStates: Int, val numSymbols: Int,
-                              val maxItrs: Int, val eps: Double) {
+class HiddenMarkovModelConfig(var trans: DenseMatrix[Double], var emissions: DenseMatrix[Double],
+                              var initStates: DenseVector[Double], var states: Array[String]) {
 
 
-  val nOns = numObs;
-  val nStates = numStates;
-  val nSymbols = numSymbols;
-  val mItrs = maxItrs;
-  val tol = eps;
+  var A = trans;
+  var B = emissions;
+  var pi = initStates;
+  var stateNames = states;
 
 }

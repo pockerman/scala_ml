@@ -10,15 +10,18 @@ import breeze.linalg.DenseVector
 class Polynomial {
 
 
-  var monomials: Array[Monomial]
+  var monomials: Array[Monomial] = null
+
+  //def monomials: Array[Monomial] = monomials
 
   def value(x: DenseVector[Double]):Double= {
 
     var result: Double = 0.0
 
-    for( idx <- 0 to x.size) {
+    /*for( idx <- 0 to x.size) {
       result += monomials[idx].value(x[idx]);
-    }
+    }*/
+    return result
   }
 
   /**

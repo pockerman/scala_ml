@@ -7,19 +7,29 @@ import breeze.linalg._
  * @param B emission probability matrix
  * @param pi initialization vector
  */
-class HiddenMarkovModel(var A: DenseMatrix[Double], var B: DenseMatrix[Double], var pi: DenseVector[Double]  ) {
+class HiddenMarkovModel(var configHmm: HiddenMarkovModelConfig  ) {
 
-  var A_ = A;
-  var B_ = B;
-  var pi_ = pi;
+  var config = configHmm;
 
 
-  def viterbiPath(val o: DenseVector[Int]): Uint{
+  //def viterbiPath(val o: DenseVector[Int]): Uint{
 
+  //}
+
+  def viterbiPath(o: DenseVector[Double]): Double = {
+
+    return 0.0
   }
 
-  def viterbiPath(val o: DenseVector[Double]): Uint{
+  def viterbiPath(o: Array[String]): Double = {
 
+    var delta = DenseMatrix.zeros[Double](o.length, config.A.rows)
+
+    // initialize delta
+    for(r <- 0 to config.A.rows){
+      delta(0, r) = config.pi(r)*config.B(r, r)
+    }
+    return 0.0
   }
 
 }

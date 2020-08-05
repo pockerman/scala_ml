@@ -11,7 +11,7 @@ import engine.maths.functions.Polynomial
 class LinearRegression {
 
 
-  var polynomial: Polynomial;
+  var polynomial: Polynomial = null;
 
   /**
    * Fit the model with the given data
