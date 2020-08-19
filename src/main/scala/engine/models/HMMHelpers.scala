@@ -14,27 +14,62 @@ object HMMHelpers {
     val startIdx = obsToIdx.get(obs(0)).get
 
     // initialize alpha// initialize alpha
-    for( i <- 0 to A.rows ){
+    for( i <- 0 until A.rows  ){
       val value = pi(i)*B(i, startIdx);
       alpha(0, i) = value;
     }
 
-    for(t <- 1 to obs.length){
-      for(j <- 0 to A.rows){
+    for(t <- 1 until obs.length ){
+      for(j <- 0 until A.rows ){
         alpha(t,j) = 0.0;
 
         var value = 0.0
-        for( i <- 0 to A.rows){
+        for( i <- 0 until A.rows  ){
           val alphaPrevious = alpha(t-1, i);
           val transProb = A(i,j);
-          value += alpha(t,j) + alphaPrevious*transProb
+          value +=  alphaPrevious*transProb
         }
 
-
+        alpha(t, j) = value
         alpha(t,j) *=  B(j, obsToIdx.get(obs(t)).get)
       }
     }
 
     alpha;
+  }
+
+  def backward(obs: Array[String], A: DenseMatrix[Double],
+               B: DenseMatrix[Double], pi: DenseVector[Double],
+               obsToIdx: Map[String, Int]) : DenseMatrix[Double]={
+
+    var beta = DenseMatrix.zeros[Double](obs.length, A.rows);
+
+    val lastRowIdx = obs.length -1;
+
+    for( i <- 0 until beta.cols ){
+      beta(lastRowIdx, i) = 1.0
+    }
+
+    // calculate matrix
+    // we loop backwards in the observation array
+    // start at the position one before the end
+    // proceed until t is -1. Move back one step at the time
+
+    for( t <- lastRowIdx -1 until -1){
+      for( i <- 0 until A.rows  ){
+        var betaVal = 0.0;
+
+        for( j <- 0 until A.rows ){
+
+          val observation = obs(t+1)
+          val idx = obsToIdx.get(observation).get
+          betaVal += B(j, idx)*A(i, j)*beta(t+1, j)
+        }
+
+        beta(t, i) = betaVal
+      }
+    }
+
+    beta
   }
 }
