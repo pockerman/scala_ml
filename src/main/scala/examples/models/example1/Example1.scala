@@ -7,8 +7,6 @@ object Example1 {
 
   def main(args: Array[String]):Unit={
 
-
-
     // create transition probability matrix
     val A = DenseMatrix((0.5, 0.25, 0.25),
                         (0.1, 0.8, 0.1),
@@ -40,7 +38,6 @@ object Example1 {
     }
 
     System.out.println("Probability: ", p)
-
 
   }
 
