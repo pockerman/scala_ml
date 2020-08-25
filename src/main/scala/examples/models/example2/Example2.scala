@@ -23,7 +23,7 @@ object Example2 {
     val o = Array("a", "b", "c")
     val obsToIdx = Map("a"->0, "b"->1, "c"->2)
 
-    val beta = HMMHelpers.backward(o, A, B, pi, obsToIdx)
+    val beta = HMMHelpers.backward(o, A, B, obsToIdx)
 
     System.out.println("beta matrix: ")
     System.out.println(beta)

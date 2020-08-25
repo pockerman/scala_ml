@@ -39,7 +39,7 @@ object HMMHelpers {
   }
 
   def backward(obs: Array[String], A: DenseMatrix[Double],
-               B: DenseMatrix[Double], pi: DenseVector[Double],
+               B: DenseMatrix[Double],
                obsToIdx: Map[String, Int]) : DenseMatrix[Double]={
 
     var beta = DenseMatrix.zeros[Double](obs.length, A.rows);
@@ -49,14 +49,15 @@ object HMMHelpers {
     for( i <- 0 until beta.cols ){
       beta(lastRowIdx, i) = 1.0
     }
-
+    
     // calculate matrix
     // we loop backwards in the observation array
     // start at the position one before the end
     // proceed until t is -1. Move back one step at the time
 
-    for( t <- lastRowIdx -1 until -1){
+    for( t <- obs.length -2 until -1 by -1){
       for( i <- 0 until A.rows  ){
+
         var betaVal = 0.0;
 
         for( j <- 0 until A.rows ){
