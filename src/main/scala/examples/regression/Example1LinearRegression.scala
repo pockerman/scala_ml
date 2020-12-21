@@ -2,7 +2,7 @@ package examples.regression
 import scala.util.Random
 
 
-object Example1Regression {
+object Example1LinearRegression {
 
   def main(args: Array[String]):Unit={
 
