@@ -1,7 +1,6 @@
 package examples.basic
 
 import java.io.File
-
 import breeze.linalg._
 
 
