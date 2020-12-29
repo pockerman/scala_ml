@@ -1,4 +1,4 @@
-package engine.utils
+package engine.datasets
 
 import breeze.linalg.{DenseMatrix, DenseVector}
 
