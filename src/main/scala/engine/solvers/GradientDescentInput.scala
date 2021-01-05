@@ -4,7 +4,7 @@ package engine.solvers
 /**
  * wraps the input required by the
  */
-class GradientDescentInput(rate: Double, iterations: Int, tolerance: Double, itrsFlag: Boolean) {
+class GradientDescentInput(rate: Double, iterations: Int, tolerance: Double, itrsInfoFlag: Boolean) {
 
   /**
    * The learning rate
@@ -24,6 +24,6 @@ class GradientDescentInput(rate: Double, iterations: Int, tolerance: Double, itr
   /**
    * Flag indicating if iteration info is displayed
    */
-  val showItrInfo: Boolean = itrsFlag;
+  val showItrInfo: Boolean = itrsInfoFlag;
 
 }
