@@ -1,6 +1,6 @@
 package examples.basic
 
-import breeze.linalg._
+
 import breeze.plot._
 import engine.utils.Constants
 
