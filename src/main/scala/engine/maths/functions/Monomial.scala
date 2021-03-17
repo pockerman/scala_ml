@@ -34,4 +34,16 @@ class Monomial(degree: Int, factor: Double) {
    */
   def getFactor():Double = f
 
+  /**
+   * Compute the gradient of the monomial
+   * @param x
+   * @return
+   */
+  def getGrad(x: Double): Double= d*f*scala.math.pow(x, d-1)
+
+  def getGrad(x: Double, order: Int): Double = {
+    var value = 0.0;
+    value
+  }
+
 }
