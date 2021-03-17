@@ -20,9 +20,9 @@ object MatrixVectorCreator {
     x(i) = 5;
 
     System.out.println("The "+i+"-th vector element is="+x(i))
-
     System.out.println("Creating DenseMatrix...")
 
+    // create matrix
     val m = DenseMatrix.zeros[Double](5, 5)
 
     System.out.println("Number of rows="+m.rows)
@@ -31,7 +31,5 @@ object MatrixVectorCreator {
     // change the last row
     m(4, ::) := DenseVector(1.,2.,3.,4.,5.).t
   }
-
-
-
+  
 }
