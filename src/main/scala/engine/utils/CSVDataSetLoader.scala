@@ -15,20 +15,27 @@ class CSVDataSetLoader {
     val fileName = "rep_height_weights.csv"
     val file = Source.fromFile(DataDirectory + fileName)
 
-    val matrix = DenseMatrix.zeros[Double](file.getLines().length, 2)
-    val vector = DenseVector.zeros[Double](file.getLines().length)
+    val lines = file.getLines().toVector
+    val matrix: DenseMatrix[Double] = DenseMatrix.zeros[Double](lines.length, 2)
+    val vector: DenseVector[Double] = DenseVector.zeros[Double](matrix.rows)
 
-    val row_counter = 0
-    for(line <- file.getLines){
+
+    var row_counter: Int = 0
+    for(line <- lines){
       val cols = line.split(",").map(_.trim)
+      //System.out.println(cols)
 
       matrix(row_counter, 0) = 1.0
       matrix(row_counter, 1) = cols(4).toDouble
       vector(row_counter) = cols(5).toDouble
+      row_counter += 1
     }
 
     // finally  close the file
     file.close
+
+    System.out.println("Matrix set rows ", matrix.rows)
+    System.out.println("Vector set size ", vector.size)
     new MatrixVectorHolder[Double, Double](matrix, vector);
   }
 
