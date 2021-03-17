@@ -7,14 +7,17 @@ import breeze.linalg.DenseVector
  * Represents a polynomial. A polynomial is modeled as
  * a list of monomials
  */
-class Polynomial {
+class Polynomial(coeffs: Array[Double]) {
 
+  /**
+   * The monomials modeling the Polynomial
+   */
+  var monomials = createMonomials(coeffs)
 
-  var monomials: Array[Monomial] = null
-
-  //def monomials: Array[Monomial] = monomials
-
-  def value(x: DenseVector[Double]):Double= {
+  /**
+   * The value of the Polynomial at x
+   */
+  def value(x: Double):Double= {
 
     var result: Double = 0.0
 
@@ -24,11 +27,19 @@ class Polynomial {
     return result
   }
 
-  /**
-   * Set the monomials used by this polynomial
-   * @param m
-   */
-  def setMonomials(m:Array[Monomial])=monomials=m
+
+  private def createMonomials(coeffs: Array[Double]): Array[Monomial] = {
+
+    //
+    var mon: Array[Monomial] = new Array[Monomial](coeffs.length)
+
+    var degree: Int = 0
+    for( c <- coeffs) {
+      mon.update(degree, new Monomial(degree, c))
+      degree += 1
+    }
+    mon
+  }
 
 
 }
