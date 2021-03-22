@@ -30,20 +30,45 @@ class Monomial(degree: Int, factor: Double) {
 
   /**
    * Returns the factor of the monomial
-   * @return
    */
   def getFactor():Double = f
 
   /**
    * Compute the gradient of the monomial
-   * @param x
-   * @return
    */
-  def getGrad(x: Double): Double= d*f*scala.math.pow(x, d-1)
+  def getGrad(x: Double): Double= getGrad(x, 1)//d*f*scala.math.pow(x, d-1)
 
+  /**
+   * Return the order-th order gradient
+   */
   def getGrad(x: Double, order: Int): Double = {
-    var value = 0.0;
-    value
+
+    if(order > degree){
+      return 0.0
+    }
+
+    var newOrder = order;
+    var newCoeff = order*factor;
+    for( o <- 0 to order){
+      newCoeff *= order - 1
+      newOrder -= 1
+    }
+
+    new Monomial(newOrder, newCoeff).value(x)
+  }
+
+  /**
+   * Returns the gradient with respect to the coefficient
+   */
+  def coeffGrad(x: Double): Double = f*scala.math.pow(x, d)
+
+  /**
+   * Returns the order-th coefficient gradient
+   */
+  def coeffGrad(x: Double, order: Integer): Double = {
+
+      if ( order > 1 ) 0.0
+      else coeffGrad(x)
   }
 
 }

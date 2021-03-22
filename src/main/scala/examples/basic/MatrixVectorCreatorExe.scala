@@ -2,7 +2,7 @@ package examples.basic
 
 import breeze.linalg._
 
-object MatrixVectorCreator {
+object MatrixVectorCreatorExe {
 
   def main(args: Array[String]):Unit={
 
@@ -29,7 +29,7 @@ object MatrixVectorCreator {
     System.out.println("Number of columns="+m.cols)
 
     // change the last row
-    m(4, ::) := DenseVector(1.,2.,3.,4.,5.).t
+    //m(4, ::) := DenseVector(1.,2.,3.,4.,5.).t
   }
-  
+
 }

@@ -27,6 +27,6 @@ class LinearRegression {
    * @param x
    * @return
    */
-  def predict(x: DenseVector[Double]):Double = polynomial.value(x);
+  def predict(x: DenseVector[Double]):Double=0.0
 
 }
