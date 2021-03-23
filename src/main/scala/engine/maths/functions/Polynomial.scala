@@ -7,7 +7,7 @@ import breeze.linalg.DenseVector
  * Represents a polynomial. A polynomial is modeled as
  * a list of monomials
  */
-class Polynomial(coeffs: Array[Double]) {
+class Polynomial(coeffs: Array[Double]) extends ScalarFunction {
 
   /**
    * The monomials modeling the Polynomial
@@ -34,7 +34,7 @@ class Polynomial(coeffs: Array[Double]) {
   /**
    * Compute the gradient of the Polynomial
    */
-  def getGrad(x: Double): Double= {
+  override def getGrad(x: Double): Double= {
 
     var result: Double = 0.0
     for(mon <-  monomials) {
@@ -76,7 +76,7 @@ class Polynomial(coeffs: Array[Double]) {
   /**
    * Returns the coefficients as a DenseVector
    */
-  def getCoeffsAsDenseVector(): DenseVector[Double] = {
+  def getCoeffsAsDenseVector: DenseVector[Double] = {
 
     val result = DenseVector.zeros[Double](monomials.length);
 

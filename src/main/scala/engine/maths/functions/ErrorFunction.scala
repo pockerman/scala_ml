@@ -7,7 +7,7 @@ abstract class ErrorFunction {
   /**
    * Compute the error between x, y
    */
-  def compute(x: Double, y: Double):Double;
+  //def compute(x: Double, y: Double):Double;
 
   /**
    * Compute the error between the x, y vectors

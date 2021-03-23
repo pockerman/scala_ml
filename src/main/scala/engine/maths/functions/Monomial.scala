@@ -3,7 +3,7 @@ package engine.maths.functions
 /**
  * Models a scalar Monomial
  */
-class Monomial(degree: Int, factor: Double) {
+class Monomial(degree: Int, factor: Double) extends ScalarFunction {
 
   val d = degree;
   val f = factor;
