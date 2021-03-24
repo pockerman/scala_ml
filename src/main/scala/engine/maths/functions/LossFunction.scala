@@ -31,7 +31,7 @@ class LossFunction(hypothesisFunction: ScalarFunction, errorFunction: ErrorFunct
   }
 
   def coeffGrad(y: Double, x: Double): Double={
-    var result = 0.
+    var result = 0.0;
     result
   }
 

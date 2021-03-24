@@ -23,7 +23,7 @@ abstract class ScalarFunction {
   /**
    * Returns the gradient with respect to the coefficient
    */
-  def coeffGrad(x: Double, coeffIdx: Integer): Double;
+  def coeffGrad(x: Double, coeffIdx: Integer): Double = coeffGrad(x, coeffIdx, 1)
 
   /**
    * Returns the order-th coefficient gradient

@@ -6,7 +6,7 @@ package engine.maths.functions
 class Monomial(degree: Int, factor: Double) extends ScalarFunction {
 
   val d = degree;
-  val f = factor;
+  var f = factor;
 
   /**
    * Default constructor
@@ -26,22 +26,27 @@ class Monomial(degree: Int, factor: Double) extends ScalarFunction {
    * Returns the degree of the monomial
    * @return
    */
-  def getDegree():Int= d
+  def getDegree:Integer= d
 
   /**
    * Returns the factor of the monomial
    */
-  def getFactor():Double = f
+  def getFactor:Double = f
+
+  /**
+   * Set the factor for the monomial
+   */
+  def setFactor(x: Double): Unit = {f = x}
 
   /**
    * Compute the gradient of the monomial
    */
-  def getGrad(x: Double): Double= getGrad(x, 1)//d*f*scala.math.pow(x, d-1)
+  //override def getGrad(x: Double): Double= getGrad(x, 1)//d*f*scala.math.pow(x, d-1)
 
   /**
    * Return the order-th order gradient
    */
-  def getGrad(x: Double, order: Int): Double = {
+  override  def getGrad(x: Double, order: Integer): Double = {
 
     if(order > degree){
       return 0.0
@@ -65,7 +70,7 @@ class Monomial(degree: Int, factor: Double) extends ScalarFunction {
   /**
    * Returns the order-th coefficient gradient
    */
-  def coeffGrad(x: Double, order: Integer): Double = {
+  override def coeffGrad(x: Double, coeffIdx: Integer, order: Integer): Double = {
 
       if ( order > 1 ) 0.0
       else coeffGrad(x)

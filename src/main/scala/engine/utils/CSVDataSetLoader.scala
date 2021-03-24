@@ -22,9 +22,7 @@ class CSVDataSetLoader {
 
     var row_counter: Int = 0
     for(line <- lines){
-      val cols = line.split(",").map(_.trim)
-      //System.out.println(cols)
-
+      val cols = line.split(",")
       matrix(row_counter, 0) = 1.0
       matrix(row_counter, 1) = cols(4).toDouble
       vector(row_counter) = cols(5).toDouble

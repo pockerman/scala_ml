@@ -7,26 +7,43 @@ import engine.maths.functions.Polynomial
  *
  * LinearRegression class. Implements linear regression on the
  */
-
-class LinearRegression {
-
-
-  var polynomial: Polynomial = null;
+class LinearRegression(coeffs: Array[Double]) extends SupervisedParametricModelBase {
 
   /**
-   * Fit the model with the given data
-   * @param x
-   * @param y
+   * The hypothesis function
    */
-  def fit(x: DenseMatrix[Double], y: DenseVector[Double]):Unit={
+  var polynomial: Polynomial = _createModelFromCoeffs(coeffs);
 
+  /**
+   * Build from the polynomial
+   */
+  def this(x: Polynomial){
+    this(x.getCoeffsAsDenseVector)
   }
 
   /**
+   * Build from the DenseVector
+   */
+  def this(x: DenseVector[Double]){
+    this(x.toArray)
+  }
+
+  /**
+   * Returns the model parameters
+   */
+  override  def getParameters: DenseVector[Double] = polynomial.getCoeffsAsDenseVector;
+
+  /**
    * Predict the regression value for the point
-   * @param x
-   * @return
    */
   def predict(x: DenseVector[Double]):Double=0.0
+
+  /**
+   * Build the underlying model form the given coefficients
+   */
+  def _createModelFromCoeffs(coeffs: Array[Double]): Polynomial ={
+    require(coeffs.length > 0)
+    new Polynomial(coeffs)
+  }
 
 }

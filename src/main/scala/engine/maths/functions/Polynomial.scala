@@ -32,6 +32,17 @@ class Polynomial(coeffs: Array[Double]) extends ScalarFunction {
   }
 
   /**
+   * Compute the values of of the Polynomial at the given point
+   */
+  def values(x: DenseVector[Double]): DenseVector[Double] = {
+    val result = DenseVector.zeros[Double](x.size)
+    for(i <- Range(0, x.size)){
+      result(i) = value(x(i))
+    }
+    result
+  }
+
+  /**
    * Compute the gradient of the Polynomial
    */
   override def getGrad(x: Double): Double= {
@@ -46,7 +57,7 @@ class Polynomial(coeffs: Array[Double]) extends ScalarFunction {
   /**
    * Returns the order-th order gradient
    */
-  def getGrad(x: Double, order: Integer): Double= {
+  override def getGrad(x: Double, order: Integer): Double= {
 
     if (order > maxDegree){
       return 0.0
@@ -60,17 +71,19 @@ class Polynomial(coeffs: Array[Double]) extends ScalarFunction {
   }
 
   /**
-   * Returns the gradient with respect to the coefficient
-   */
-  def coeffGrad(x: Double, coeffIdx: Integer): Double = coeffGrad(x, coeffIdx, 1)
-
-  /**
    * Returns the order-th coefficient gradient
    */
-  def coeffGrad(x: Double, coeffIdx: Integer, order: Integer): Double = {
+  override  def coeffGrad(x: Double, coeffIdx: Integer, order: Integer): Double = {
 
      val result = monomials.apply(coeffIdx).coeffGrad(x, order)
      result
+  }
+
+  /**
+   * Update the coefficients
+   */
+  def updateCoeff(coeffs: DenseVector[Double]): Unit = {
+
   }
 
   /**
@@ -82,7 +95,7 @@ class Polynomial(coeffs: Array[Double]) extends ScalarFunction {
 
     var i = 0
     for(mon <- monomials){
-       result(i) = mon.getFactor()
+       result(i) = mon.getFactor
        i += 1
     }
 
