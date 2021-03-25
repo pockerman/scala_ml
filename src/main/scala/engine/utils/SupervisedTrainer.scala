@@ -5,11 +5,11 @@ class SupervisedTrainer(input: SuperVisedTrainerInput) {
 
   val inPut = input
 
-  def train(): Uint = {
+  def train() = {
 
     var res: Double = Double.MaxValue
     for(itr <- Range(1, inPut.maxNIterations)){
-      System.out.println("At iteration ", itr, " residual="res)
+      System.out.println("At iteration " + itr + " residual="+res)
     }
   }
 

@@ -1,12 +1,14 @@
 package engine.maths.functions
 
 import breeze.linalg.DenseVector
+import engine.models.SupervisedParametricModelBase
+import engine.maths.functions.ErrorFunction
 
 /**
  * A wrapper class for ErrorFunction and
  * Function objects
  */
-class LossFunction(hypothesisFunction: ScalarFunction, errorFunction: ErrorFunction) {
+class LossFunction(hypothesisFunction: SupervisedParametricModelBase, errorFunction: ErrorFunction) {
 
   /**
    * The monomials modeling the Polynomial

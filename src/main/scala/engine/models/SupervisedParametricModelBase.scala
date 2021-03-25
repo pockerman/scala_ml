@@ -12,4 +12,9 @@ abstract class SupervisedParametricModelBase {
    */
   def getParameters: DenseVector[Double];
 
+  /**
+   * The value of the Polynomial at x
+   */
+  def value(x: Double):Double;
+
 }
