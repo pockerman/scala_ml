@@ -11,8 +11,7 @@ object LinearRegressionExe_1 {
 
   def main(args: Array[String]):Unit={
 
-    // read in the data set
-
+    // data set
     val x = LineDataSetLoader.lineSplit(0.0, 10.0, 100)
 
     System.out.println("Number of training examples: " + x.size)

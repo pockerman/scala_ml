@@ -32,6 +32,22 @@ class LossFunction(hypothesisFunction: SupervisedParametricModelBase, errorFunct
     result;
   }
 
+  /**
+   * Compute the total error between
+   * the two inputs
+   * @param x
+   * @param y
+   * @return
+   */
+  def totalError(x: DenseVector[Double], y: DenseVector[Double]): Double ={
+
+    require(x.size == y.size)
+    var err = 0.0
+
+
+  }
+
+
   def coeffGrad(y: Double, x: Double): Double={
     var result = 0.0;
     result
