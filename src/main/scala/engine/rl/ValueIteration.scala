@@ -58,12 +58,13 @@ class ValueIteration[DiscreteActionSpace](world: DiscreteWorld[Int, DiscreteActi
         val next_state = dynamics(item)._2
         val reward = dynamics(item)._3
         values(action) += prob * (reward + gamma * stateValues(next_state))
-        rewards.addOne((state, action, next_state), reward)
 
-        if (transits.contains((state, action, next_state))){
+        if(rewards.contains((state, action, next_state))){
+          rewards.update((state, action, next_state), reward)
           transits.update((state, action, next_state), 1)
         }
-        else {
+        else{
+          rewards.addOne((state, action, next_state), reward)
           transits.addOne((state, action, next_state), 1)
         }
       }
