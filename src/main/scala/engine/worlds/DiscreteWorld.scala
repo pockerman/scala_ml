@@ -19,6 +19,12 @@ abstract class DiscreteWorld[State, DiscreteActionSpace] {
   def nStates: Int = states_.length
 
   /**
+   *
+   * @return
+   */
+  def nActions: Int;
+
+  /**
    * Sample an action from the action space
    * @return
    */
@@ -50,5 +56,13 @@ abstract class DiscreteWorld[State, DiscreteActionSpace] {
 
     states_(sIdx) = state;
   }
+
+  /**
+   *
+   * @param state
+   * @param action
+   * @return
+   */
+  def getDynamics(state: State, action: Int): Array[Tuple4[Double, State, Double, Boolean]];
 
 }
