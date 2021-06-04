@@ -1,6 +1,9 @@
 package examples.rl
 import me.shadaj.scalapy.py
 
+import scala.collection.immutable.HashMap
+import scala.collection.mutable
+
 
 object Example1_CreateGym_World extends App {
 
@@ -17,5 +20,15 @@ object Example1_CreateGym_World extends App {
 
   println("Number of actions " + env.action_space.n)
   println("Number of states " + env.observation_space.n)
+
+  val P = py.Dynamic.global.dict(env.P)
+  val dynamics = P.bracketAccess(0).bracketAccess(0)
+
+
+  for(i <- 0 until env.observation_space.n.as[Int]){
+    println(P)
+  }
+
+  println(dynamics)
 
 }
