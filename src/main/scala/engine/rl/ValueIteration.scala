@@ -1,19 +1,18 @@
 package engine.rl
 
-import scala.collection.mutable.ArrayBuffer
-import breeze.linalg.{DenseVector, max}
-import engine.worlds.DiscreteWorld
 
 import scala.collection.mutable
+import breeze.linalg.{DenseVector, max}
+import engine.worlds.DiscreteEnvironment
 
-class ValueIteration[DiscreteActionSpace](world: DiscreteWorld[Int, DiscreteActionSpace],
-                                          gamma: Double,
-                                          maxIterations: Int,
-                                          tolerance: Double) {
+
+class ValueIteration(env: DiscreteEnvironment,
+                     gamma: Double, maxIterations: Int, tolerance: Double,
+                     trainMode: TrainMode.Value=TrainMode.DEFAULT) {
 
   val rewards = new mutable.HashMap[Tuple3[Int, Int, Int], Double]()
   val transits = new mutable.HashMap[Tuple3[Int, Int, Int], Int]
-  val stateValues = DenseVector.zeros[Double](world.nStates)
+  val stateValues = DenseVector.zeros[Double](env.nStates)
   var residual = 1.0
 
   def train:  Unit = {
@@ -29,10 +28,10 @@ class ValueIteration[DiscreteActionSpace](world: DiscreteWorld[Int, DiscreteActi
   def step: Unit ={
 
     // stop condition
-    var  delta = 0.
+    var  delta = 0.0
 
     // update each state
-    for( s <- 0 until world.nStates){
+    for( s <- 0 until env.nStates){
 
       // Do a one-step lookahead to find the best action
       val value = oneStepLookahead(state=s)
@@ -46,13 +45,13 @@ class ValueIteration[DiscreteActionSpace](world: DiscreteWorld[Int, DiscreteActi
 
   protected  def oneStepLookahead(state: Int): DenseVector[Double] = {
 
-    val values = DenseVector.zeros[Double](world.nActions)
+    val values = DenseVector.zeros[Double](env.nActions)
 
-    for(action <- 0 until world.nActions) {
+    for(action <- 0 until env.nActions) {
 
-      val dynamics = world.getDynamics(state = state, action = action)
+      val dynamics = env.getDynamics(state = state, action = action)
 
-      for(item <- 0 until dynamics.length){
+      for(item <- dynamics.indices){
 
         val prob = dynamics(item)._1
         val next_state = dynamics(item)._2

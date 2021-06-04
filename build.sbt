@@ -1,6 +1,6 @@
 name := "scalarl"
 
-version := "0.1"
+version := "0.0.1"
 
 scalaVersion := "2.13.3"
 
@@ -16,8 +16,37 @@ libraryDependencies  ++= Seq(
 
   // The visualization library is distributed separately as well.
   // It depends on LGPL code
-  "org.scalanlp" %% "breeze-viz" % "1.1"
+  "org.scalanlp" %% "breeze-viz" % "1.1",
+
 )
 
-//libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.1"
-//libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
+// ====
+// ScalaPy
+
+// JVM
+libraryDependencies +="me.shadaj" %% "scalapy-core" % "0.5.0"
+
+fork := true
+
+import scala.sys.process._
+lazy val pythonLdFlags = {
+
+  val withoutEmbed = "python3-config --ldflags".!!
+
+  if (withoutEmbed.contains("-lpython")) {
+    withoutEmbed.split(' ').map(_.trim).filter(_.nonEmpty).toSeq
+  }
+  else {
+    val withEmbed = "python3-config --ldflags --embed".!!
+    withEmbed.split(' ').map(_.trim).filter(_.nonEmpty).toSeq
+  }
+}
+
+lazy val pythonLibsDir = {
+  pythonLdFlags.find(_.startsWith("-L")).get.drop("-L".length)
+}
+
+javaOptions += s"-Djna.library.path=$pythonLibsDir"
+//javaOptions += s"-Djna.library.path=/usr/lib/python3.8/config-3.8-x86_64-linux-gnu"
+
+// ===
