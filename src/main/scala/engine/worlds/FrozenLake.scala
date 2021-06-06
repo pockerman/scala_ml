@@ -1,9 +1,10 @@
 package engine.worlds
-import engine.states.State
 import me.shadaj.scalapy.py
-import me.shadaj.scalapy.readwrite.Reader.doubleReader
 
 
+/**
+ * Frozen lake world wrapper
+ */
 class FrozenLake(val version: String) extends DiscreteEnvironment {
 
   // load the gym module
@@ -19,16 +20,24 @@ class FrozenLake(val version: String) extends DiscreteEnvironment {
    *  Reset the environment
    */
   override def reset: Int = {
-
     val state = this.env.reset()
     state.as[Int]
   }
 
   /**
-   *
-   * @param action
+   * Sample an action
    */
-  override def step(action: Int): (Int, Double, Boolean, AnyRef) = null
+  override  def sampleAction: Int = {
+    this.env.action_space.sample().as[Int]
+  }
+
+  /**
+   * Apply the action in the world
+   */
+  override def step(action: Int): (Int, Double, Boolean, AnyRef) = {
+    val stepResult: Tuple3[Int, Double, Boolean] = this.env.step(action).as[(Int, Double, Boolean)]
+    new Tuple4[Int, Double, Boolean, AnyRef](stepResult._1, stepResult._2, stepResult._3, null)
+  }
 
   /**
    * Whether the current episode within the environment has finished
