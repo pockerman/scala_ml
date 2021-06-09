@@ -14,21 +14,32 @@ class ValueIteration(env: DiscreteEnvironment,
                      gamma: Double, maxIterations: Int, tolerance: Double,
                      trainMode: TrainMode.Value=TrainMode.DEFAULT) {
 
+  // require that the environment is not null
+  require(env != null)
+
   val rewards = new mutable.HashMap[Tuple3[Int, Int, Int], Double]()
   val transits = new mutable.HashMap[Tuple2[Int, Int], mutable.HashMap[Int,Int]]
   var stateValues = DenseVector.zeros[Double](env.nStates)
   var residual = 1.0
   var state = env.reset
 
-  /**
-   * Train the model
-   */
-  def train:  Unit = {
 
+  def reinit: Unit = {
 
     this.rewards.clear()
     this.transits.clear()
     this.stateValues = DenseVector.zeros[Double](env.nStates)
+  }
+
+  /**
+   * Train the model
+   */
+  def train(reinitState: Boolean=true):  Unit = {
+
+
+    if(reinitState){
+      this.reinit
+    }
 
     if(this.trainMode == TrainMode.STOCHASTIC){
       this.stochasticStep
@@ -78,9 +89,10 @@ class ValueIteration(env: DiscreteEnvironment,
    */
   def stochasticStep: Unit = {
 
-      for (itr <- Range(0, maxIterations)) {
+      for (itr <- Range(0,  maxIterations)) {
 
-        println("> Learning iteration " + itr)
+
+        //println("> Learning iteration " + itr)
 
         val action = this.env.sampleAction
         val stepResult = this.env.step(action)
@@ -169,6 +181,7 @@ class ValueIteration(env: DiscreteEnvironment,
 
       val localStateValues = new collection.mutable.ArrayBuffer[Double]
       var actionValue = 0.0
+
       for (action <- 0 until this.env.nActions) {
 
         if (this.transits.contains((stateIdx, action))) {
@@ -186,8 +199,12 @@ class ValueIteration(env: DiscreteEnvironment,
             localStateValues.addOne(actionValue)
           }
         }
-        stateValues(state) = max(localStateValues)
       }
+
+      if(!localStateValues.isEmpty) {
+        stateValues(stateIdx) = max(localStateValues)
+      }
+
     }
   }
 
@@ -218,16 +235,21 @@ class ValueIteration(env: DiscreteEnvironment,
     }
     else {
 
-      val targetCountsMap = this.transits((stateIdx, action))
-      val total = sum(targetCountsMap.values)
+      if(!this.transits.contains((stateIdx, action))){
+        actionValue = 0.0
+      }
+      else {
+        val targetCountsMap = this.transits((stateIdx, action))
+        val total = sum(targetCountsMap.values)
 
-      for ((tgtState, count) <- targetCountsMap) {
+        for ((tgtState, count) <- targetCountsMap) {
 
-        val rewardsKey = (stateIdx, action, tgtState)
-        val reward = this.rewards(rewardsKey)
+          val rewardsKey = (stateIdx, action, tgtState)
+          val reward = this.rewards(rewardsKey)
 
-        actionValue = reward + this.gamma * this.stateValues(tgtState)
-        actionValue += (count / total) * actionValue
+          actionValue = reward + this.gamma * this.stateValues(tgtState)
+          actionValue += (count / total) * actionValue
+        }
       }
     }
 
