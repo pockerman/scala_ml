@@ -17,6 +17,11 @@ abstract class DiscreteEnvironment extends EnvironmentBase[Int, Int] {
   def nActions: Int;
 
   /**
+   * Sample an action
+   */
+  def sampleAction: Int;
+
+  /**
    *
    */
   def getDynamics(state: Int, action: Int): Seq[(Double, Int, Double, Boolean)]
