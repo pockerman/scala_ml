@@ -20,6 +20,11 @@ class FrozenLake(val version: String) extends DiscreteEnvironment {
    *  Reset the environment
    */
   override def reset: Int = {
+
+    if(this.env == null){
+      throw new NullPointerException("Environment not established. Have you called 'make' ")
+    }
+
     val state = this.env.reset()
     state.as[Int]
   }
