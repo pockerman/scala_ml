@@ -1,22 +1,26 @@
 package examples.rl
 
 import engine.rl.{TrainMode, ValueIteration}
-import engine.worlds.FrozenLake
+import engine.worlds.{DiscreteEnvironment, FrozenLake}
 
 import scala.util.control.Breaks.{break, breakable}
 import me.shadaj.scalapy.py
 
-object Example2_ValueIteration extends App {
+class Agend(env: DiscreteEnvironment,
+            gamma: Double, maxIterations: Int, tolerance: Double,
+            trainMode: TrainMode.Value=TrainMode.DEFAULT) extends ValueIteration(env = env, gamma = gamma,
+                                                                                 maxIterations = maxIterations, tolerance = tolerance,
+                                                                                 trainMode = trainMode){
 
-  def play_episode(env: FrozenLake, agend: ValueIteration): Double ={
+  def play_episode(env: DiscreteEnvironment: Double ={
 
     var totalReward = 0.0
-    var state = env.reset
+    var localState = env.reset
 
     breakable {
       while (true) {
 
-        val action = agend.selectAction(state = state)
+        val action = this.selectAction(state = localState)
         val stepResult = env.step(action)
         val newState = stepResult._1
         val reward = stepResult._2
@@ -26,13 +30,17 @@ object Example2_ValueIteration extends App {
         if(isDone) {
           break
         }
-        state = newState
-
+        localState = newState
       }
     }
 
     totalReward
   }
+
+
+}
+
+object Example2_ValueIteration extends App {
 
   val tensorboardX = py.module("tensorboardX")
   val writer = tensorboardX.SummaryWriter(comment="-v-iteration")
@@ -41,11 +49,13 @@ object Example2_ValueIteration extends App {
   val TEST_EPISODES = 20
 
   val env = new FrozenLake("v0")
-  val testEnv = new FrozenLake("v0")
   env.make
-  val valItr = new ValueIteration(env=env, gamma=GAMMA,
-                                  maxIterations=20, tolerance=1.0e-4,
-                                  trainMode = TrainMode.STOCHASTIC)
+  val testEnv = new FrozenLake("v0")
+  testEnv.make
+
+  val agend = new Agend(env = env, gamma = GAMMA,
+                         maxIterations = 20, tolerance = 1.0e-4,
+                         trainMode = TrainMode.STOCHASTIC)
 
   var bestReward = 0.0
   var iterNo = 0
@@ -54,13 +64,17 @@ object Example2_ValueIteration extends App {
     while (true) {
 
       iterNo += 1
-      valItr.train
+      agend.train(false)
 
       var reward = 0.0
+      println("Playing episode " + iterNo)
+
       for (i <- 0 until TEST_EPISODES) {
-        reward += play_episode(env = testEnv, agend = valItr)
+        reward += agend.play_episode(env = testEnv)
       }
-      reward /= TEST_EPISODES
+
+      reward /= TEST_EPISODES.toDouble
+
       writer.add_scalar("reward", reward, iterNo)
       if (reward > bestReward) {
         println("Best reward updated " + bestReward + "->" + reward)
