@@ -32,6 +32,22 @@ class Polynomial(coeffs: Array[Double]) extends ScalarFunction {
   }
 
   /**
+   *
+   * @param x
+   * @return
+   */
+  def value(x: DenseVector[Double]):Double= {
+
+    require(x.size == this.monomials.size)
+    var result = 0.0
+    for(mon <- 0 until monomials.size) {
+      result += monomials(mon).value(x(mon));
+    }
+    result
+  }
+
+
+  /**
    * Compute the values of of the Polynomial at the given point
    */
   def values(x: DenseVector[Double]): DenseVector[Double] = {
@@ -83,6 +99,12 @@ class Polynomial(coeffs: Array[Double]) extends ScalarFunction {
    * Update the coefficients
    */
   def updateCoeff(coeffs: DenseVector[Double]): Unit = {
+
+    require(coeffs.size == monomials.length)
+
+    for(m <-0 until monomials.size){
+      monomials(m).setFactor(coeffs(m))
+    }
 
   }
 
