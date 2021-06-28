@@ -96,26 +96,4 @@ class LogisticRegression {
     }
   }
 
-  /**
-   * Calculate the loss function on the X,y
-   * @param x
-   * @param y
-   * @return
-   */
-  /*private def L(x: DenseMatrix[Double], y: DenseVector[Double], parameters: DenseVector[Double]): Double = {
-    val xBeta = x * parameters
-    val expXBeta = exp(xBeta)
-    val targets_time = y *:* xBeta
-    -sum(targets_time - log1p(expXBeta))
-  }*/
-
-  /**
-   * Calculate the gradient of the loss function
-   */
-  /*private def gradL(x: DenseMatrix[Double], y: DenseVector[Double], parameters: DenseVector[Double]): DenseVector[Double]={
-    val xBeta = x * parameters
-    val probs = sigmoid(xBeta)
-    x.t * (probs - y)
-  }*/
-
 }
