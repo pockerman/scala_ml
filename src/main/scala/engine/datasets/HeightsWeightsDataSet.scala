@@ -11,8 +11,9 @@ import breeze.linalg.DenseVector
  * @param genders
  */
 class HeightsWeightsDataSet (val weights:DenseVector[Double], val heights:DenseVector[Double],
-                             val reportedWeights:DenseVector[Double], val reportedHeights:DenseVector[Double],
-                              val genders:DenseVector[Char]){
+                             val reportedWeights:DenseVector[Double],
+                             val reportedHeights:DenseVector[Double],
+                             val genders:DenseVector[Char]){
 
   val npoints: Int = heights.length;
 
@@ -21,11 +22,6 @@ class HeightsWeightsDataSet (val weights:DenseVector[Double], val heights:DenseV
   require(genders.length == npoints)
   require(reportedHeights.length == npoints)
 
-  val weightsCol = weights;
-  val heightsCol = heights;
-  val reportedWeightsCol = reportedWeights;
-  val reportedHeightsCol = reportedHeights;
-  val gendersCol = genders;
 
   val filename = "data/rep_height_weights.csv"
 
