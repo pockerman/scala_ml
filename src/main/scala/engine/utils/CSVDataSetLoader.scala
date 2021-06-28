@@ -5,7 +5,7 @@ import engine.datasets.{MatrixVectorHolder, HeightsWeightsDataSet}
 
 import scala.io.Source
 
-class CSVDataSetLoader {
+object CSVDataSetLoader {
 
   val DataDirectory = "data/"
 
