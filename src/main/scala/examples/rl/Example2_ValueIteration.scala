@@ -1,6 +1,7 @@
 package examples.rl
 
-import engine.rl.{TrainMode, ValueIteration}
+import engine.rl.TrainMode
+import engine.rl.algos.dp.ValueIteration
 import engine.worlds.{DiscreteEnvironment, FrozenLake}
 
 import scala.util.control.Breaks.{break, breakable}
@@ -12,7 +13,7 @@ class Agend(env: DiscreteEnvironment,
                                                                                  maxIterations = maxIterations, tolerance = tolerance,
                                                                                  trainMode = trainMode){
 
-  def play_episode(env: DiscreteEnvironment: Double ={
+  def play_episode(env: DiscreteEnvironment): Double ={
 
     var totalReward = 0.0
     var localState = env.reset
