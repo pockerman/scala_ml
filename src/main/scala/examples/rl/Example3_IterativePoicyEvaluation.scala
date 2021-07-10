@@ -1,47 +1,21 @@
 package examples.rl
 
 import engine.rl.TrainMode
-import engine.rl.algos.dp.ValueIteration
+import engine.rl.algos.dp.{IterativePolicyEvaluator}
 import engine.worlds.{DiscreteEnvironment, FrozenLake}
-
-import scala.util.control.Breaks.{break, breakable}
 import me.shadaj.scalapy.py
 
+import scala.util.control.Breaks.{break, breakable}
+
 class Agend(env: DiscreteEnvironment,
-            gamma: Double, maxIterations: Int, tolerance: Double,
-            trainMode: TrainMode.Value=TrainMode.DEFAULT) extends ValueIteration(env = env, gamma = gamma,
-                                                                                 maxIterations = maxIterations, tolerance = tolerance,
-                                                                                 trainMode = trainMode){
-
-  def play_episode(env: DiscreteEnvironment): Double ={
-
-    var totalReward = 0.0
-    var localState = env.reset
-
-    breakable {
-      while (true) {
-
-        val action = this.selectAction(state = localState)
-        val stepResult = env.step(action)
-        val newState = stepResult._1
-        val reward = stepResult._2
-        val isDone = stepResult._3
-
-        totalReward += reward
-        if(isDone) {
-          break
-        }
-        localState = newState
-      }
-    }
-
-    totalReward
-  }
-
+            gamma: Double, maxIterations: Int, tolerance: Double ) extends IterativePolicyEvaluator(environment = env, gamma = gamma,
+                                                                                                    nMaxItrs = maxIterations, tolerance = tolerance,
+                                                                                          ){
 
 }
 
-object Example2_ValueIteration extends App {
+object Example3_IterativePoicyEvaluation {
+
 
   val tensorboardX = py.module("tensorboardX")
   val writer = tensorboardX.SummaryWriter(comment="-v-iteration")
@@ -55,8 +29,7 @@ object Example2_ValueIteration extends App {
   testEnv.make
 
   val agend = new Agend(env = env, gamma = GAMMA,
-                         maxIterations = 20, tolerance = 1.0e-4,
-                         trainMode = TrainMode.STOCHASTIC)
+                        maxIterations = 20, tolerance = 1.0e-4)
 
   var bestReward = 0.0
   var iterNo = 0
@@ -91,5 +64,6 @@ object Example2_ValueIteration extends App {
   }
 
   writer.close()
+
 
 }
