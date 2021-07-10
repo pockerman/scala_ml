@@ -1,10 +1,10 @@
-package engine.rl
+package engine.rl.algos.dp
 
-
-import scala.collection.mutable
 import breeze.linalg.{DenseVector, max, sum}
+import engine.rl.TrainMode
 import engine.worlds.DiscreteEnvironment
 
+import scala.collection.mutable
 import scala.util.control.Breaks.{break, breakable}
 
 /**

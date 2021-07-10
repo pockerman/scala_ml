@@ -1,25 +1,26 @@
-package engine.rl
+package engine.rl.algos.dp
 
 import breeze.linalg.{DenseVector, max}
 import breeze.numerics.abs
+import engine.rl.AlgorithmBase
 import engine.rl.utils.Policy
 import engine.worlds.DiscreteEnvironment
 
 class IterativePolicyEvaluator(environment: DiscreteEnvironment,
-                               nMaxItrs: Int, tolerance: Double, var gamma: Double) extends AlgorithmBase(environment = environment,
-  nMaxItrs = nMaxItrs, tolerance = tolerance) {
+                               nMaxItrs: Int, tolerance: Double,
+                               val policy: Policy[Int, Int],
+                               val gamma: Double) extends AlgorithmBase(environment = environment,
+                                                                        nMaxItrs = nMaxItrs, tolerance = tolerance) {
 
   /**
-   *
+   * The value function table
    */
   var v: DenseVector[Double] = null
 
   /**
-   * The policy
+   * Specify the necessary actions to execute before
+   * starting the training iterations
    */
-  var policy: Policy[Int, Int] = null
-
-
   override def actionsBeforeTrainingIterations: Unit = {
     super.actionsBeforeTrainingIterations
     this.state = this.environment.reset
@@ -27,7 +28,13 @@ class IterativePolicyEvaluator(environment: DiscreteEnvironment,
   }
 
   /**
-   *
+   * Specify the necessary actions to execute after the training
+   * iterations finish. This class has no specified actions
+   */
+  override def actionsAfterTrainingIterations: Unit = {}
+
+  /**
+   * Do one iteration step
    */
   override  def step: Unit = {
 
@@ -76,9 +83,6 @@ class IterativePolicyEvaluator(environment: DiscreteEnvironment,
     value
   }
 
-  /**
-   *
-   */
-  override def actionsAfterTrainingIterations: Unit = {}
+
 
 }
