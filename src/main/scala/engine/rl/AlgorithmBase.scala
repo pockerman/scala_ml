@@ -3,6 +3,10 @@ package engine.rl
 import engine.utils.{IterationController, IterationCtrlResult}
 
 abstract class AlgorithmBase(var environment: Any, nMaxItrs: Int, tolerance: Double) {
+
+  // require that the environment is not null
+  require(environment != null)
+
   /**
    *
    */
@@ -12,6 +16,12 @@ abstract class AlgorithmBase(var environment: Any, nMaxItrs: Int, tolerance: Dou
    *
    */
   var itrCtrl = new IterationController(maxItrs = nMaxItrs, tolerance = tolerance)
+
+  /**
+   *
+   * @return
+   */
+  def itrCtrl: IterationController = this.itrCtrl
 
 
   /**
