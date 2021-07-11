@@ -1,7 +1,7 @@
 package engine.utils
 
-class IterationCtrlResult(tolerance: Double, residual: Double,
-                          nItrs: Int, nMaxItrs: Int, nProcs: Int = 1) {
+class IterationCtrlResult(val tolerance: Double, var residual: Double,
+                          var nItrs: Int, val nMaxItrs: Int, val nProcs: Int = 1) {
 
 
   def converged: Boolean = residual < tolerance
