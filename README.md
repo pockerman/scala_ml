@@ -18,7 +18,7 @@ Simple implementation of various algorithms using Scala
 
 - <a href="src/main/scala/examples/rl/Example3_IterativePoicyEvaluation.scala">Iterative policy evaluation on ```FrozenLake-v0```</a>
 - <a href="src/main/scala/examples/rl/Example4_PolicyImprovement_FrozenLake.scala">Policy improvement on ```FrozenLake-v0```</a>
-- <a href="#">Policy iteration on ```FrozenLake-v0```</a>
+- <a href="src/main/scala/examples/rl/Example5_PolicyIteration_FrozenLake">Policy iteration on ```FrozenLake-v0```</a>
 - <a href="src/main/scala/examples/rl/Example2_ValueIteration.scala">Value iteration on ```FrozenLake-v0```</a>
 
 #### Monte Carlo
