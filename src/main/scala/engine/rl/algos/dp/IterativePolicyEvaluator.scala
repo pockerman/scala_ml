@@ -8,7 +8,7 @@ import engine.worlds.DiscreteEnvironment
 
 class IterativePolicyEvaluator(environment: DiscreteEnvironment,
                                nMaxItrs: Int, tolerance: Double,
-                               val policy: Policy[Int, Int],
+                               var policy: Policy[Int, Int],
                                val gamma: Double) extends AlgorithmBase(environment = environment,
                                                                         nMaxItrs = nMaxItrs, tolerance = tolerance) {
 
