@@ -16,14 +16,13 @@ class PolicyIteration(environment: DiscreteEnvironment,
                                                      nMaxItrs = nPolicyEvalItrs, tolerance = tolerance,
                                                      policy = policy, gamma = gamma)
   var policyImprovement = new PolicyImprovement(environment = environment, gamma = gamma, policy = policy,
-                                                policyAdaptor = policyAdaptor, v = policyEvaluator.v)
+                                                policyAdaptor = policyAdaptor, valFunc = policyEvaluator.v)
 
   /**
    * Specify the necessary actions to execute before
    * starting the training iterations
    */
   override def actionsBeforeTrainingIterations: Unit = {
-    super.actionsBeforeTrainingIterations
     policyEvaluator.actionsBeforeTrainingIterations
     policyImprovement.actionsBeforeTrainingIterations
   }
@@ -33,7 +32,6 @@ class PolicyIteration(environment: DiscreteEnvironment,
    * iterations finish. This class has no specified actions
    */
   override def actionsAfterTrainingIterations: Unit = {
-    super.actionsAfterTrainingIterations
     policyEvaluator.actionsAfterTrainingIterations
     policyImprovement.actionsAfterTrainingIterations
   }
@@ -60,7 +58,7 @@ class PolicyIteration(environment: DiscreteEnvironment,
 
     // check of the two policies are the same
     if(oldPolicy == newPolicy) {
-      this.itrCtrl.residual = this.itrCtrl.tolerance*10**-1
+      this.itrCtrl.residual = this.itrCtrl.tolerance* math.pow(10.0, -1.0)
     }
 
     this.policyEvaluator.policy = newPolicy

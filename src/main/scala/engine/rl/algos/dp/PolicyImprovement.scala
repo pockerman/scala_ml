@@ -15,10 +15,13 @@ import engine.worlds.DiscreteEnvironment
  * @param gamma
  */
 class PolicyImprovement (environment: DiscreteEnvironment,
-                         policy: Policy[Int, Int],
+                         policy: Policy[Int, Int], gamma: Double,
+                         valFunc: DenseVector[Double],
                          val policyAdaptor: PolicyAdaptorBase[Int, Int],
-                         gamma: Double) extends DPAlgoBase(environment = environment,
+                        ) extends DPAlgoBase(environment = environment,
                          nMaxItrs = 1, tolerance = 1.0e-4, policy = policy, gamma = gamma){
+
+  this.v = valFunc
 
 
   /**

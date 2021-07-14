@@ -21,7 +21,7 @@ abstract class AlgorithmBase(var environment: Any, nMaxItrs: Int, tolerance: Dou
    *
    * @return
    */
-  def itrCtrl: IterationController = this.itrCtrl
+  //def itrCtrl: IterationController = this.itrCtrl
 
 
   /**
@@ -31,7 +31,7 @@ abstract class AlgorithmBase(var environment: Any, nMaxItrs: Int, tolerance: Dou
    */
   def train: IterationCtrlResult= {
 
-    itrCtrlRsult = new IterationCtrlResult(tolerance=itrCtrl.tolerance,
+    val itrCtrlRsult = new IterationCtrlResult(tolerance=itrCtrl.tolerance,
                                              residual=itrCtrl.residual,
                                              nItrs = 0, nMaxItrs = itrCtrl.maxItrs,
                                              nProcs = 1)

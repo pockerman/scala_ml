@@ -2,6 +2,7 @@ package engine.rl.utils
 
 import scala.collection.mutable.ArrayBuffer
 
+
 class DiscreteUniformPolicy(val nStates: Int, val nActions: Int, val prob: Double) extends Policy[Int, Int] {
 
   var result: ArrayBuffer[(Int, Double)] = null

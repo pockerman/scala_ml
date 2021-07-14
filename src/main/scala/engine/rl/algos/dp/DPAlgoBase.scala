@@ -2,7 +2,7 @@ package engine.rl.algos.dp
 
 import breeze.linalg.DenseVector
 import engine.rl.AlgorithmBase
-import engine.rl.utils.{Policy, PolicyAdaptorBase}
+import engine.rl.utils.{Policy}
 import engine.worlds.DiscreteEnvironment
 
 abstract class DPAlgoBase(environment: DiscreteEnvironment,

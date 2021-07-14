@@ -21,8 +21,9 @@ class ValueIteration(environment: DiscreteEnvironment,
 
   //
   val policyImprovement = new PolicyImprovement(environment=environment, gamma=gamma,
-                                                policy=policy, policyAdaptor=policyAdaptor)
-  policyImprovement.v = this.v
+                                                policy=policy, policyAdaptor=policyAdaptor,
+    valFunc = this.v)
+  //policyImprovement.v = this.v
 
   /**
    * TDo one step
@@ -30,7 +31,7 @@ class ValueIteration(environment: DiscreteEnvironment,
   override def step:  Unit = {
 
 
-    var delta = 0.
+    var delta = 0.0
     for(s <- 0 until this.environment.nStates){
 
       val v = this.v(s)
