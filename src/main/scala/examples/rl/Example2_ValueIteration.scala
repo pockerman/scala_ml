@@ -7,7 +7,7 @@ import engine.worlds.{DiscreteEnvironment, FrozenLake}
 import scala.util.control.Breaks.{break, breakable}
 import me.shadaj.scalapy.py
 
-class Agend(env: DiscreteEnvironment,
+/*class Agend(env: DiscreteEnvironment,
             gamma: Double, maxIterations: Int, tolerance: Double,
             trainMode: TrainMode.Value=TrainMode.DEFAULT) extends ValueIteration(env = env, gamma = gamma,
                                                                                  maxIterations = maxIterations, tolerance = tolerance,
@@ -39,11 +39,11 @@ class Agend(env: DiscreteEnvironment,
   }
 
 
-}
+}*/
 
 object Example2_ValueIteration extends App {
 
-  val tensorboardX = py.module("tensorboardX")
+  /*val tensorboardX = py.module("tensorboardX")
   val writer = tensorboardX.SummaryWriter(comment="-v-iteration")
 
   val GAMMA = 0.9
@@ -90,6 +90,6 @@ object Example2_ValueIteration extends App {
     }
   }
 
-  writer.close()
+  writer.close()*/
 
 }
