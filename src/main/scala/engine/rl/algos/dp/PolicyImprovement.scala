@@ -15,26 +15,14 @@ import engine.worlds.DiscreteEnvironment
  * @param gamma
  */
 class PolicyImprovement (environment: DiscreteEnvironment,
-                         var v: DenseVector[Double],
-                         val policy: Policy[Int, Int],
+                         policy: Policy[Int, Int], gamma: Double,
+                         valFunc: DenseVector[Double],
                          val policyAdaptor: PolicyAdaptorBase[Int, Int],
-                         val gamma: Double) extends AlgorithmBase(environment = environment,
-                         nMaxItrs = 1, tolerance = 1.0e-4){
+                        ) extends DPAlgoBase(environment = environment,
+                         nMaxItrs = 1, tolerance = 1.0e-4, policy = policy, gamma = gamma){
 
-  /**
-   * Specify the necessary actions to execute before
-   * starting the training iterations
-   */
-  override def actionsBeforeTrainingIterations: Unit = {
-    super.actionsBeforeTrainingIterations
-    this.state = this.environment.reset
-  }
+  this.v = valFunc
 
-  /**
-   * Specify the necessary actions to execute after the training
-   * iterations finish. This class has no specified actions
-   */
-  override def actionsAfterTrainingIterations: Unit = {}
 
   /**
    * Do one iteration step
