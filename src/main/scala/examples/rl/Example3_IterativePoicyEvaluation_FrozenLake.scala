@@ -8,11 +8,11 @@ import me.shadaj.scalapy.py
 import scala.util.control.Breaks.{break, breakable}
 
 class Agend(env: DiscreteEnvironment,
-            gamma: Double, maxIterations: Int, tolerance: Double ) extends IterativePolicyEvaluator(environment = env, gamma = gamma,
-                                                                                                    nMaxItrs = maxIterations, tolerance = tolerance,
-                                                                                          ){
+            gamma: Double, maxIterations: Int, tolerance: Double, )
+  extends IterativePolicyEvaluator(environment = env, gamma = gamma,
+    nMaxItrs = maxIterations, tolerance = tolerance)
 
-}
+
 
 object Example3_IterativePoicyEvaluation {
 
