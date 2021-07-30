@@ -33,5 +33,8 @@ Simple implementation of various algorithms using Scala
 
 ## Images
 
-![][images/state_value_function.png]
-**Value function on FronzenLake environment.**
+<img src="images/state_value_function.png"
+     alt="Carrot Patth Following"
+     style="float: left; margin-right: 10px; width: 500px;" />
+
+
