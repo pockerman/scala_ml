@@ -20,6 +20,9 @@ libraryDependencies  ++= Seq(
 
 )
 
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.9" %  "test"
+libraryDependencies += "au.com.bytecode" % "opencsv" % "5.0"
+
 // ====
 // ScalaPy
 
