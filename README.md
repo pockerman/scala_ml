@@ -33,5 +33,5 @@ Simple implementation of various algorithms using Scala
 
 ## Images
 
-![Value function on FrozenLake environment][images/state_value_function.png]
+![][images/state_value_function.png]
 **Value function on FronzenLake environment.**
