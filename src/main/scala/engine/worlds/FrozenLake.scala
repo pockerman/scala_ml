@@ -72,7 +72,7 @@ class FrozenLake(val version: String) extends DiscreteEnvironment {
 
     val P = py.Dynamic.global.dict(this.env.P)
     val dynamicsTuple = P.bracketAccess(state)
-    val result = dynamicsTuple.bracketAccess(action).as[Seq[Tuple4[Double, Int,Double, Boolean]]]
+    val result = dynamicsTuple.bracketAccess(action).as[Seq[(Double, Int, Double, Boolean)]]
     result
   }
 
