@@ -2,8 +2,11 @@ package engine.rl.algos.dp
 
 import breeze.linalg.DenseVector
 import engine.rl.AlgorithmBase
-import engine.rl.utils.{Policy}
+import engine.rl.utils.Policy
+import engine.utils.CSVDataWriter
 import engine.worlds.DiscreteEnvironment
+
+import scala.collection.mutable.ListBuffer
 
 abstract class DPAlgoBase(environment: DiscreteEnvironment,
                  nMaxItrs: Int,
@@ -31,5 +34,22 @@ abstract class DPAlgoBase(environment: DiscreteEnvironment,
    * iterations finish. This class has no specified actions
    */
   override def actionsAfterTrainingIterations: Unit = {}
+
+  /**
+   * Save the value function. By default it uses CSV
+   * with format State Id, Value Func
+   * @param filename
+   */
+  def save(filename: String): Unit = {
+
+    val writer = new CSVDataWriter(filename = filename, Array("State Id", "Value Func"))
+    val listOfRecords = new ListBuffer[Array[String]]()
+
+    for(s <- 0 until this.environment.nStates){
+      listOfRecords += Array(s.toString, v(s).toString)
+    }
+
+    writer.writeRows(listOfRecords)
+  }
 
 }
