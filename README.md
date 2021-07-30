@@ -29,3 +29,9 @@ Simple implementation of various algorithms using Scala
 ### Machine Learning
 
 #### Supervised Learning
+
+
+## Images
+
+![Value function on FrozenLake environment][images/state_value_function.png]
+**Value function on FronzenLake environment.**
